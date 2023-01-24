@@ -31,6 +31,14 @@ namespace BiGeziCoreApiProject
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BiGeziCoreApiProject", Version = "v1" });
             });
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("BiGeziApiCors", opts =>
+                {
+                    opts.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +52,8 @@ namespace BiGeziCoreApiProject
             }
 
             app.UseRouting();
+
+            app.UseCors("BiGeziApiCors");
 
             app.UseAuthorization();
 
